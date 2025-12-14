@@ -1,0 +1,75 @@
+- name: Setup Nginx on zero group
+  hosts: zero
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Set homepage for zero group
+      copy:
+        dest: /var/www/html/index.nginx-debian.html
+        content: |
+          <html>
+          <head><title>Welcome</title></head>
+          <body><h1>Hello from the zero group of instances!</h1></body>
+          </html>
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+- name: Setup Nginx on first group
+  hosts: first
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Set homepage for first group
+      copy:
+        dest: /var/www/html/index.nginx-debian.html
+        content: |
+          <html>
+          <head><title>Welcome</title></head>
+          <body><h1>Hello from the first group of instances!</h1></body>
+          </html>
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+- name: Setup Nginx on second group
+  hosts: second
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Set homepage for second group
+      copy:
+        dest: /var/www/html/index.nginx-debian.html
+        content: |
+          <html>
+          <head><title>Welcome</title></head>
+          <body><h1>Hello from the second group of instances!</h1></body>
+          </html>
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
